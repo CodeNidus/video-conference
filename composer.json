@@ -1,0 +1,29 @@
+{
+    "name": "codenidus/video-conference",
+    "description": "Video Conference laravel/vue package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CodeNidus",
+            "email": "codenidus@gmail.com",
+            "homepage": "https://www.codenidus.com"
+        }
+    ],
+    "homepage": "https://github.com/CodeNidus/video-conference",
+    "keywords": ["Laravel", "Vue", "VideoConference"],
+    "autoload": {
+        "psr-4": {
+            "Codenidus\\VideoConference\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codenidus\\VideoConference\\VideoConferenceServiceProvider"
+            ],
+            "aliases": {
+                "VideoConference": "Codenidus\\VideoConference\\Facades\\VideoConference"
+            }
+        }
+    }
+}
