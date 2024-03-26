@@ -50,7 +50,7 @@ class VideoConferenceServiceProvider extends ServiceProvider
             __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.eot' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.eot'),
             __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.rrf' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.rrf'),
             __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.svg' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.svg'),
-            __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.ttf' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.rrf'),
+            __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.ttf' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.ttf'),
             __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.woff' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.woff'),
             __DIR__.'/../resources/js/assets/webrtc/fonts/Roboto/roboto-light.woff2' => resource_path('js/assets/webrtc/fonts/Roboto/roboto-light.woff2'),
             __DIR__.'/../resources/js/assets/webrtc/images/face-profile.jpg' => resource_path('js/assets/webrtc/images/face-profile.jpg'),
@@ -192,9 +192,7 @@ class VideoConferenceServiceProvider extends ServiceProvider
      */
     protected function bootForConsole(): void
     {
-
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-
     }
 
     protected function webRouteConfiguration()
