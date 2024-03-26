@@ -1,8 +1,6 @@
 export default {
   debug: false,
-  base_utl: process.env.MIX_WEBRTC_BASE_URL || 'http://localhost',
-  api_url: process.env.MIX_WEBRTC_BASE_URL + '/api',
-  api_token_url: process.env.MIX_WEBRTC_TOKEN_URL || 'localhost/api/token',
+  api_token_url: process.env.MIX_WEBRTC_TOKEN_URL || 'localhost:8000/api/videoconference/userToken',
   webrtc_url: 'https://fitkala.com',
   webrtc_connection: 'fitkala.com',
   peer_secure: true,
@@ -11,8 +9,8 @@ export default {
   videoconference_theme: process.env.MIX_WEBRTC_THEME || 'default',
   mediapipe: {
     models: {
-      'faceDetector': process.env.MIX_WEBRTC_BASE_URL + '/models/face',
-      'bodySegmentation': process.env.MIX_WEBRTC_BASE_URL + '/models/selfie'
+      faceDetector: '/models/face',
+      bodySegmentation: '/models/selfie'
     },
     fps: 30
   },

@@ -299,18 +299,7 @@ const setWaitingStatus = (status) => {
   waiting.value = status
 }
 
-
-const checkPermissions = async (permission) => {
-  await navigator.permissions.query({name: permission}).then((result) => {
-    permissionsFailed.value[permission] = (result.state !== "granted")
-  })
-}
-
 const grantPermissions = async () => {
-  // if (!permissionsFailed.value.camera && !permissionsFailed.value.microphone) {
-  //   return
-  // }
-
   permissionsRequest.value = true
 
   let mediaStream;
@@ -328,13 +317,13 @@ const grantPermissions = async () => {
       microphone: false
     }
 
+    devices.value = await webrtc.getDevices()
+
     const tracks = mediaStream.getTracks()
 
     tracks.forEach((track) => {
       track.stop()
     })
-
-    devices.value = await webrtc.getDevices()
   }
 
   permissionsRequest.value = false
@@ -346,8 +335,6 @@ onMounted(async () => {
   devices.value = await webrtc.getDevices()
 
   getUserAccessToken()
-  //await checkPermissions('camera')
-  //await checkPermissions('microphone')
   await grantPermissions()
 })
 

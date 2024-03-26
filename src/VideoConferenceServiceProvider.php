@@ -199,23 +199,37 @@ class VideoConferenceServiceProvider extends ServiceProvider
 
     protected function webRouteConfiguration()
     {
-        $middlewareList = array_merge( ['web', 'videoconferenceAuthorize'],
-            config('video-conference.routes.api.middleware', []));
-
-        return [
+        $route = [
             'prefix' => config('video-conference.prefix'),
-            'middleware' => $middlewareList,
+            'middleware' => []
         ];
+
+        $middlewareList = array_merge(['web'],  config('video-conference.routes.web.middleware', []));
+
+        if(!config('video-conference.demo_user')) {
+            $route['middleware'] = array_merge($route['middleware'], $middlewareList);
+        }
+
+        $route['middleware'][] = 'videoconferenceAuthorize';
+
+        return $route;
     }
 
     protected function apiRouteConfiguration()
     {
-        $middlewareList = array_merge( ['api', 'videoconferenceAuthorize'],
-            config('video-conference.routes.api.middleware', []));
-
-        return [
+        $route = [
             'prefix' => 'api/'. config('video-conference.prefix'),
-            'middleware' => $middlewareList,
+            'middleware' => []
         ];
+
+        $middlewareList = array_merge(['api'],  config('video-conference.routes.api.middleware', []));
+
+        if(!config('video-conference.demo_user')) {
+            $route['middleware'] = array_merge($route['middleware'], $middlewareList);
+        }
+
+        $route['middleware'][] = 'videoconferenceAuthorize';
+
+        return $route;
     }
 }

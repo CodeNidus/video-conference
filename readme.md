@@ -31,7 +31,6 @@ $ npm install @tensorflow-models/body-segmentation @tensorflow-models/face-detec
 #### Set laravel project .env variables
 ```
 # WEBRTC CONFIGS  
-MIX_WEBRTC_BASE_URL="http://localhost:8000"  
 MIX_WEBRTC_TOKEN_URL="http://localhost:8000/api/videoconference/userToken"  
 MIX_WEBRTC_THEME="Default"
 
@@ -53,6 +52,11 @@ Webrtc routes for vue-router
 ```
 import webrtcRoutes from "@/router/webrtc.js";
 ```
+Store user login token in local storage on specific key name
+```
+localStorage.setItem('cnidus.videoconference.laravel.token', 'user-token')
+```
+
 
 ## Demo
 

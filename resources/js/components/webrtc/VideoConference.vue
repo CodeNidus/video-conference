@@ -101,7 +101,6 @@ const connections = ref([])
 const waitingList = ref([])
 const userSettings = ref({
   isCreator: false,
-  isBrowserWindowActive: true,
 })
 const theme = ref(configs.webrtc.videoconference_theme)
 const themeReady = ref(false)

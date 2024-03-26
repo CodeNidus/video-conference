@@ -38,17 +38,19 @@
 
   const webrtcReGenerateUserToken = async () => {
     return new Promise((resolve, reject) => {
-
-      const videoFormData = new FormData()
-      videoFormData.append('name', uuidv4())
-      videoFormData.append('room_id', route.params.roomId)
-
       const apiClient = axios.getInstance('/')
+      const laravelToken = localStorage.getItem('cnidus.videoconference.laravel.token');
+
+      if(!laravelToken) {
+        reject('It seems that your Laravel token is not stored in local storage.')
+      }
 
       apiClient({
         method: 'get',
         url: configs.api_token_url,
-        data: videoFormData
+        headers: {
+          Authorization: `Bearer ${laravelToken}`
+        }
       }).then(response => {
         setUserVideoConferenceToken(response.data.data)
         resolve(true)
