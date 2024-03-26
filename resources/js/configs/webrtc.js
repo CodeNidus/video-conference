@@ -1,6 +1,6 @@
 export default {
   debug: false,
-  api_token_url: process.env.MIX_WEBRTC_TOKEN_URL || 'localhost:8000/api/videoconference/userToken',
+  api_token_url: process.env.MIX_WEBRTC_TOKEN_URL || '/api/videoconference/userToken',
   webrtc_url: 'https://fitkala.com',
   webrtc_connection: 'fitkala.com',
   peer_secure: true,

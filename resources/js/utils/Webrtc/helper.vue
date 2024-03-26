@@ -39,10 +39,10 @@
   const webrtcReGenerateUserToken = async () => {
     return new Promise((resolve, reject) => {
       const apiClient = axios.getInstance('/')
-      const laravelToken = localStorage.getItem('cnidus.videoconference.laravel.token');
+      const laravelToken = localStorage.getItem('cnidus.videoconference.laravel.token') || '';
 
-      if(!laravelToken) {
-        reject('It seems that your Laravel token is not stored in local storage.')
+      if(laravelToken === '') {
+        console.log('It seems that your Laravel token is not stored in local storage.')
       }
 
       apiClient({
@@ -55,6 +55,9 @@
         setUserVideoConferenceToken(response.data.data)
         resolve(true)
       }, error => {
+        if(error.code === 12) {
+          reject('Please ensure your url configs for video conference package.')
+        }
         reject('Error happened! ' + error.response.data.message)
       })
     })

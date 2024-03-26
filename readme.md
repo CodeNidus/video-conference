@@ -31,7 +31,7 @@ $ npm install @tensorflow-models/body-segmentation @tensorflow-models/face-detec
 #### Set laravel project .env variables
 ```
 # WEBRTC CONFIGS  
-MIX_WEBRTC_TOKEN_URL="http://localhost:8000/api/videoconference/userToken"  
+MIX_WEBRTC_TOKEN_URL="/api/videoconference/userToken"  
 MIX_WEBRTC_THEME="Default"
 
 VIDEOCONFERENCE_APP_ID="Project id"
