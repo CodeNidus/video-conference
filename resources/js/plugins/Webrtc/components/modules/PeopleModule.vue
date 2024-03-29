@@ -78,7 +78,7 @@
 
 <script setup>
 import { ref, computed, watch, defineProps, nextTick, onUnmounted } from 'vue'
-import admitAudio from '../../../assets/webrtc/audio/admit.mp3';
+import admitAudio from '../../assets/audio/admit.mp3'
 
 const props = defineProps({
   webrtc: {

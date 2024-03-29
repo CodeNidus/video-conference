@@ -1,5 +1,5 @@
 import axios from 'axios'
-import configs from '../../configs/webrtc'
+import configs from './configs'
 
 const apiClient = {}
 

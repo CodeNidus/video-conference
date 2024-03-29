@@ -52,8 +52,8 @@
 
 <script setup>
 import {defineExpose, defineProps, ref, computed, onMounted} from 'vue'
-import axios from '../../../utils/Webrtc/Axios'
-import HelperItem from '../../../utils/Webrtc/helper.vue'
+import axios from '../../Axios.js'
+import HelperItem from '../../helper.vue'
 
 const apiClient = axios.getInstance()
 

@@ -1,5 +1,5 @@
 import PeerJS from 'peerjs';
-import configs from "../../configs/webrtc";
+import configs from "./configs";
 
 
 class VideoPeer

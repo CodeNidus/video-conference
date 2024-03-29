@@ -1,5 +1,5 @@
-import Rooms from "../components/webrtc/Rooms";
-import RoomJoin from "../components/webrtc/RoomJoin";
+import Rooms from "../plugins/Webrtc/components/Rooms.vue";
+import RoomJoin from "../plugins/Webrtc/components/RoomJoin.vue";
 
 export default [
   {

@@ -50,8 +50,8 @@
 
 <script setup>
 import { ref, defineProps } from 'vue'
-import axios from '../../utils/Webrtc/Axios'
 import { useRoute, useRouter } from 'vue-router'
+import axios from '../Axios.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -76,7 +76,9 @@ const message = ref({
     color: 'green'
 })
 
-room.value.id = route.params.room_id
+if (route?.params?.room_id) {
+  room.value.id = route.params.room_id
+}
 
 const joinRoom = (roomId) => {
   router.push({

@@ -43,7 +43,7 @@
 
 <script setup>
 import { ref, computed, watch, defineProps, nextTick, onUnmounted } from 'vue'
-import beepAudio from '../../../assets/webrtc/audio/beep.mp3'
+import beepAudio from '../../assets/audio/beep.mp3'
 
 
 const props = defineProps({

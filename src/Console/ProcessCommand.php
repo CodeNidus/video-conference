@@ -54,7 +54,7 @@ class ProcessCommand extends Command
     protected function writeCommentOnScreen()
     {
         $this->warn('Please install dependencies packages by running \'npm install vue'
-            .' vue-loader axios peerjs socket.io-client@^4.1.2\' ');
+            .' vue-loader vue-router sass sass-loader axios peerjs socket.io-client@^4.1.2\' ');
 			
 		$this->warn('Please install medipipe packages by running \'npm install'
             .' @mediapipe/face_detection @mediapipe/selfie_segmentation\' ');

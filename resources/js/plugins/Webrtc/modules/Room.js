@@ -34,13 +34,13 @@ module.exports = () => {
    * User Left the Room
    */
   Room.left = (roomId, userData = {}) => {
-    this.parent.People.closeAll();
-    this.parent.Media.release();
-    this.parent.peerJs.destroy();
+    this.parent?.People.closeAll();
+    this.parent?.Media.release();
+    this.parent?.peerJs.destroy();
 
-    let data = Object.assign({ peerJsId: this.parent.peerJsId, }, userData)
+    let data = Object.assign({ peerJsId: this.parent?.peerJsId, }, userData)
 
-    this.parent.socket.emit('left-room', roomId, data, (data) => {
+    this.parent?.socket.emit('left-room', roomId, data, (data) => {
       this.parent.socket.close();
       this.parent.socket = null;
     });

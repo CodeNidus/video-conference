@@ -45,7 +45,7 @@ import '@tensorflow/tfjs-converter'
 import VideoConferenceActions from './VideoConferenceActions.vue'
 import ChatModule from './modules/ChatModule.vue'
 import PeopleModule from './modules/PeopleModule.vue'
-import configs from '../../configs'
+import configs from '../configs'
 
 const webrtc = inject('webrtc')
 
@@ -102,7 +102,7 @@ const waitingList = ref([])
 const userSettings = ref({
   isCreator: false,
 })
-const theme = ref(configs.webrtc.videoconference_theme)
+const theme = ref(configs.videoconference_theme)
 const themeReady = ref(false)
 const themeLayout = shallowRef(null)
 const commands = ref({
@@ -345,5 +345,5 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../assets/webrtc/scss/DefaultThemeStyle.scss";
+@import "../assets/scss/DefaultThemeStyle.scss";
 </style>

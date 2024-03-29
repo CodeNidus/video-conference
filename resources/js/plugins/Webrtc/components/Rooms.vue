@@ -25,12 +25,11 @@
 
 <script setup>
 import {onBeforeUnmount, onMounted, ref} from 'vue'
-import RoomsList from './RoomsList'
-import RoomCreate from './RoomCreate'
-import HelperItem from '../../utils/Webrtc/helper.vue'
+import RoomsList from './RoomsList.vue'
+import RoomCreate from './RoomCreate.vue'
+import HelperItem from '../helper.vue'
 
 const helper = ref()
-
 
 const token = ref()
 const waitingDots = ref('.')

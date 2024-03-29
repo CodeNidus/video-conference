@@ -11,19 +11,19 @@ CodeNidus video conference laravel/vue package
 Via Composer
 
 ``` bash
-$ composer require codenidus/video-conference
+composer require codenidus/video-conference
 ```
 Install Laravel package
 
 ``` bash
-$ php artisan videoconference:install
+php artisan videoconference:install
 ```
 
 Install NPM packages
 ``` bash
-$ npm install vue vue-loader axios peerjs socket.io-client@^4.1.2
-$ npm install @mediapipe/face_detection @mediapipe/selfie_segmentation
-$ npm install @tensorflow-models/body-segmentation @tensorflow-models/face-detection @tensorflow/tfjs-backend-webgl @tensorflow/tfjs-converter @tensorflow/tfjs-core
+npm install vue vue-loader vue-router sass sass-loader file-loader axios peerjs socket.io-client@^4.1.2
+npm install @mediapipe/face_detection @mediapipe/selfie_segmentation
+npm install @tensorflow-models/body-segmentation @tensorflow-models/face-detection @tensorflow/tfjs-backend-webgl @tensorflow/tfjs-converter @tensorflow/tfjs-core
 ```
 
 ## Usage
@@ -36,6 +36,27 @@ MIX_WEBRTC_THEME="Default"
 
 VIDEOCONFERENCE_APP_ID="Project id"
 VIDEOCONFERENCE_APP_SECRET="App Secret Token"
+```
+
+#### Add vue loader to webpack
+Editing the webpack.mix.js config file and add this lines for load vue and mp3 files
+```
+ mix.webpackConfig({
+  module: {
+    rules: [
+      {
+        test: /\.mp3$/,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ],
+      },
+    ],
+  },
+});
+
+mix.js('resources/js/app.js', 'public/js').vue()
 ```
 
 #### Modify in vue project 

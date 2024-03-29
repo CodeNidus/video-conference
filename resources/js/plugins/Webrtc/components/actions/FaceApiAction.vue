@@ -42,7 +42,7 @@
 
 <script setup>
 import {defineExpose, defineProps, ref, computed, onMounted, onUnmounted} from 'vue'
-import FakeFace from "../../../assets/webrtc/images/face-profile.jpg";
+import FakeFace from "../../assets/images/face-profile.jpg"
 
 const props = defineProps({
   webrtc: {

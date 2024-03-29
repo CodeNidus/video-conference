@@ -2,8 +2,8 @@
   import { ref, defineExpose } from 'vue'
   import { useRoute } from 'vue-router'
   import { v4 as uuidv4 } from 'uuid'
-  import axios from '../../utils/Webrtc/Axios'
-  import configs from '../../configs/webrtc'
+  import axios from './Axios.js'
+  import configs from './configs'
 
   const route = useRoute()
   const webrtcStorageKey = 'cnidus.videoconference.user.token'

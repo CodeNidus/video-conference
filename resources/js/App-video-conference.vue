@@ -1,17 +1,9 @@
 <template>
   <div>
     <p>Video Conference Test</p>
-    <Rooms/>
+    <router-link :to="{ name:'webrtcRooms' }">Rooms</router-link>
+    <router-view />
   </div>
 </template>
 
-<script>
-import Rooms from "./components/webrtc/Rooms.vue";
-
-export default {
-  components: {
-    Rooms,
-  }
-}
-</script>
 

@@ -1,4 +1,4 @@
-const configs = require("../../../configs/webrtc");
+const configs = require("../configs");
 
 module.exports = () => {
   const Events = {

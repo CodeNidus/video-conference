@@ -1,5 +1,5 @@
-const faceDetection = require('./MediapipeFaceDetect')();
-const bodySegmentation = require('./MediapipeBodySegment')();
+const faceDetection = require('./MediapipeFaceDetect.js')();
+const bodySegmentation = require('./MediapipeBodySegment.js')();
 
 const errors = [
   { name: ['NotFoundError', 'DevicesNotFoundError'], message: 'required track is missing' },

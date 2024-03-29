@@ -185,7 +185,7 @@
 import {ref, inject, computed, watch, onMounted} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import VideoConference from './VideoConference.vue'
-import HelperItem from '../../utils/Webrtc/helper.vue'
+import HelperItem from '../helper.vue'
 
 const route = useRoute()
 const router = useRouter()

@@ -1,5 +1,13 @@
 # Release Notes
 
-## Version 1.0
+## Version 1.3
+change package structure.
 
-Initial stable release.
+## Version 1.2
+fix some configs.
+
+## Version 1.1
+add laravel token.
+
+## Version 1.0
+Initial first release.
