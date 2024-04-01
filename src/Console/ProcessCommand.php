@@ -15,6 +15,7 @@ class ProcessCommand extends Command
         $this->publishConfigFile();
         $this->publishMiddlewareFile();
         $this->publishVueAssets();
+        $this->setEnvVariables();
         $this->writeCommentOnScreen();
     }
 
@@ -54,7 +55,7 @@ class ProcessCommand extends Command
     protected function writeCommentOnScreen()
     {
         $this->warn('Please install dependencies packages by running \'npm install vue'
-            .' vue-loader vue-router sass sass-loader axios peerjs socket.io-client@^4.1.2\' ');
+            .' vue-loader vue-router sass sass-loader file-loader axios peerjs socket.io-client@^4.1.2\' ');
 			
 		$this->warn('Please install medipipe packages by running \'npm install'
             .' @mediapipe/face_detection @mediapipe/selfie_segmentation\' ');
@@ -62,5 +63,21 @@ class ProcessCommand extends Command
 		$this->warn('Please install tensorflow packages by running \'npm install'
 		.' @tensorflow-models/body-segmentation @tensorflow-models/face-detection @tensorflow/tfjs-backend-webgl'
 		.' @tensorflow/tfjs-converter @tensorflow/tfjs-core\' ');	
+    }
+
+    protected function setEnvVariables()
+    {
+        $path = base_path('.env');
+
+        if (file_exists($path)) {
+            $contents = file_get_contents($path);
+
+            if(strpos($contents, "MIX_WEBRTC_TOKEN_URL") === false) {
+                $exampleVariable = file_get_contents(__DIR__.'/.env.example');
+                file_put_contents($path, $exampleVariable, FILE_APPEND);
+
+                $this->info('Environment variables in .env was set...');
+            }
+        }
     }
 }
