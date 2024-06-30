@@ -89,6 +89,9 @@ const createRoom = (e) => {
     return false
   }
 
+  let currentTime = new Date().getTime();
+  room.value.expire_time = new Date(currentTime + 48 * 60 * 60 * 1000);
+
   loading.value = true
 
   apiClient.post('/api/rooms', room.value, {

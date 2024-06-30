@@ -23,6 +23,10 @@
         />
       </template>
       <template v-slot:actions>
+        <ShareScreenModule
+            :ref="(obj) => modules['shareScreen'] = obj"
+            :webrtc="webrtc"
+        />
         <VideoConferenceActions
           ref="actions"
           v-if="themeReady && isReady"
@@ -45,6 +49,7 @@ import '@tensorflow/tfjs-converter'
 import VideoConferenceActions from './VideoConferenceActions.vue'
 import ChatModule from './modules/ChatModule.vue'
 import PeopleModule from './modules/PeopleModule.vue'
+import ShareScreenModule from './modules/ShareScreenModule.vue'
 import configs from '../configs'
 
 const webrtc = inject('webrtc')
@@ -86,7 +91,8 @@ const props = defineProps({
 const actions = ref()
 const modules = ref({
   chat: null,
-  people: null
+  people: null,
+  screenShare: null,
 })
 const room = ref(null)
 const token = ref(null)
@@ -101,6 +107,7 @@ const connections = ref([])
 const waitingList = ref([])
 const userSettings = ref({
   isCreator: false,
+  share: false,
 })
 const theme = ref(configs.videoconference_theme)
 const themeReady = ref(false)
@@ -111,7 +118,8 @@ const commands = ref({
   run: (name, data = {}) => {
     actions.value.runAction({name: name, data: data })
   },
-  open: (name) => { openModule(name) }
+  open: (name) => { openModule(name) },
+  isMobile: () => { return webrtc.isMobileDevice() }
 })
 
 const connect = () => {
@@ -165,6 +173,7 @@ const initialize = async (roomItem = null, tokenItem = null) => {
         localVideoRef: 'video-item',
         remoteVideoRef: 'remote-video',
         remoteAudioRef: 'remote-audio',
+        screenShareRef: 'screen-sharing',
         resolution: props.devices.resolution
       },
       callback: {
@@ -221,7 +230,7 @@ const leftTheRoom = async () =>  {
     username: props.name,
   }
 
-  webrtc.Room.left(room.value?.id, data);
+  webrtc.Room.left(room.value?.id, data)
   exitConference()
 }
 

@@ -128,6 +128,27 @@
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z"/>
         </svg>
       </a>
+
+      <a
+          v-if="!props.commands.isMobile()"
+          class="btn btn-small btn-default btn-action"
+          :class="{ disabled: props.userSettings.share }"
+          @click.prevent="props.commands.open('shareScreen')"
+      >
+        <span class="tooltip top">
+          {{ (!props.userSettings.share) ? 'Enable screen share' : 'Disable screen share' }}
+        </span>
+        <svg
+            v-if="!props.userSettings.share"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+            class="bi bi-export-variant" viewBox="0 0 24 24">
+          <path d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z" />
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+             class="bi bi-export-variant" viewBox="0 0 24 24">
+          <path d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z" />
+        </svg>
+      </a>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 const faceDetection = require('./MediapipeFaceDetect.js')();
 const bodySegmentation = require('./MediapipeBodySegment.js')();
+const screenShare = require('./ShareScreen')();
 
 const errors = [
   { name: ['NotFoundError', 'DevicesNotFoundError'], message: 'required track is missing' },
@@ -114,6 +115,8 @@ module.exports = () => {
         this.faceDetector.detector = detector;
       });
     });
+
+    Media.screenShare = screenShare.initial(this.parent);
   }
 
   /**
@@ -286,24 +289,30 @@ module.exports = () => {
   /**
    * Set mediaStream video
    */
-  Media.streamVideo = (peerJsId, media) => {
+  Media.streamVideo = (peerJsId, media, options = {}) => {
     let reference = (!peerJsId)? this.options.localVideoRef : this.options.remoteVideoRef + '-' + peerJsId;
-    let video = document.getElementById(reference);
+    let video = document.getElementById(
+        (!!options?.customReference)?
+            options.customReference :
+            reference
+    );
 
-    video.muted = true;
+    video.muted = (!options?.videoMute || options.videoMute === true);
     video.srcObject = media;
     video.addEventListener('loadedmetadata', () => {
       video.play();
     }, { once: true });
 
-    video.addEventListener('play', () => {
-      if(!this.events.play && this.events.play.length > 0) {
-        this.events.play.forEach((item) => {
-          if(!item.handler) return false;
-          item.handler(video);
-        });
-      }
-    }, { once: true });
+    if (!options?.eventListener || options.eventListener === true) {
+      video.addEventListener('play', () => {
+        if(!this.events.play && this.events.play.length > 0) {
+          this.events.play.forEach((item) => {
+            if(!item.handler) return false;
+            item.handler(video);
+          });
+        }
+      }, { once: true });
+    }
   }
 
   /**
@@ -378,6 +387,10 @@ module.exports = () => {
     });
   }
 
+  /**
+   * Trigger events for connections by peerjs data connection
+   */
+
   Media.sendUserMediaMuteStatusByDataConnection = (videoStatus, audioStatus) => {
     let connections = this.parent.People.getConnections();
 
@@ -445,6 +458,8 @@ module.exports = () => {
       }
     }
   }
+
+  Media.screenShare = {};
 
   return Media;
 }

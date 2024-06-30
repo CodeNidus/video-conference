@@ -31,6 +31,7 @@ module.exports = () => {
         active: false,
         camMute: true,
         micMute: true,
+        share: false,
         name: ((userIndex !== -1)? this.parent.Room.information.users[userIndex].name : ''),
         isCreator: ((userIndex !== -1)? this.parent.Room.information.users[userIndex].roomCreator : false),
       });
@@ -103,6 +104,35 @@ module.exports = () => {
     if(index > -1) {
       this.waitingList.splice(index, 1);
     }
+  }
+
+  // helper methods
+  People.setData = (peerJsId, key, value, options = {}) => {
+    let index = (options?.customKey)?
+        this.connections.findIndex(x => x[options.customKey] === peerJsId) :
+        this.connections.findIndex(x => x.peerJsId === peerJsId);
+
+    if (index > -1) {
+      this.connections[index][key] = value;
+    }
+  }
+
+  People.findOne = (key, value) => {
+    let index = this.connections.findIndex(x => x[key] === value);
+
+    return (index > -1)? this.connections[index] : null;
+  }
+
+  People.find = (key, value) => {
+    let data = [];
+
+    this.connections.forEach(item => {
+      if(item[key] === value) {
+        data.push(item);
+      }
+    })
+
+    return data;
   }
 
   return People;

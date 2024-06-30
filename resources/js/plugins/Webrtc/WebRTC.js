@@ -45,6 +45,8 @@ class Webrtc
 
       // set events
       this.on('peerJsData', 'muteMedia', this.Media.setConnectionMediaStatus);
+      this.on('peerJsData', 'screenShare', this.Media.screenShare.closeScreenShare);
+
 
     }).catch(err => {
       console.log('error happened for webrtc initial', err);
@@ -97,14 +99,36 @@ class Webrtc
     return new Promise((resolve, reject) => {
       try {
         this.Media.grab(
-          devices,
-          this.userSettings.camDisable,
-          this.userSettings.micDisable,
+            devices,
+            this.userSettings.camDisable,
+            this.userSettings.micDisable,
         ).then((media) => {
           this.peerJs.on('call', async (mediaConnection) => {
-            const dataConnection = this.peerJs.connect(mediaConnection.peer);
-            await this.People.add(mediaConnection, dataConnection);
-            mediaConnection.answer(this.Media.userMedia);
+            if (mediaConnection.metadata?.type === 'screen-sharing') {
+              this.People.setData(mediaConnection.peer, 'shareMediaConnection', mediaConnection, {
+                customKey: 'sharePeerJsId'
+              });
+
+              mediaConnection.on('stream', peerVideoStream => {
+                this.Media.streamVideo(null, peerVideoStream, {
+                  customReference: 'screen-sharing-video',
+                  videoMute: false,
+                  eventListener: false,
+                });
+
+                let shareScreen = document.getElementById(this.options.screenShareRef);
+                shareScreen.style.display = 'block';
+              });
+
+              this.People.setData(mediaConnection.metadata?.peerJsId, 'share', true);
+              this.People.setData(mediaConnection.metadata?.peerJsId, 'sharePeerJsId', mediaConnection.metadata?.sharePeerJsId);
+
+              mediaConnection.answer();
+            } else {
+              const dataConnection = this.peerJs.connect(mediaConnection.peer);
+              await this.People.add(mediaConnection, dataConnection);
+              mediaConnection.answer(this.Media.userMedia);
+            }
           });
 
           this.userSettings.peerJsId = this.peerJsId;
@@ -125,6 +149,11 @@ class Webrtc
     const dataConnection = this.peerJs.connect(data.peerJsId);
 
     await this.People.add(mediaConnection, dataConnection, data);
+
+    // share screen
+    if (this.userSettings.share) {
+      this.Media.screenShare.callToNewJoinedUser(data.peerJsId);
+    }
 
     mediaConnection.on('close', () => {
       console.log('Close user...' + data.peerJsId);
@@ -149,15 +178,18 @@ class Webrtc
   }
 
   async getDevices() {
-    return await navigator.mediaDevices.enumerateDevices().then(devices => {
-      return devices.filter(item => {
-        return item.deviceId !== 'default' && item.deviceId !== 'communications';
-      });
-    }).catch((error) => {
+    try {
+      return await navigator.mediaDevices.enumerateDevices().then(devices => {
+        return devices.filter(item => {
+          return item.deviceId !== 'default' && item.deviceId !== 'communications';
+        });
+      })
+    } catch(error) {
       console.log(error);
-      return false;
-    });
+      return [];
+    }
   }
+
 
   camelToKebab(name) {
     name = name.replace(/[A-Z]/g, m => '-' + m.toLowerCase());
@@ -173,6 +205,11 @@ class Webrtc
 
   isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  notify(title, text) {
+    console.log(title, ': ', text);
+    alert(text);
   }
 
 }

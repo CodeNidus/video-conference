@@ -26,6 +26,28 @@ class VideoPeer
     });
   }
 
+  screenShareConnection(status = false) {
+    return new Promise((resolve, reject) => {
+      if (status) {
+        this.sharePeer = new PeerJS(undefined, {
+          host: configs.peer_host,
+          port: configs.peer_port,
+          secure: /^true$/i.test(configs.peer_secure),
+          referrerPolicy: '',
+        }).on('open', (id) => {
+          this.sharePeerJsId = id;
+          resolve(this);
+        }).on('error', (error) => {
+          //
+        });
+      } else {
+        this.sharePeer.destroy();
+        this.sharePeerJsId = null;
+        resolve(this);
+      }
+    });
+  }
+
   getId() {
     return this.peerJsId;
   }
