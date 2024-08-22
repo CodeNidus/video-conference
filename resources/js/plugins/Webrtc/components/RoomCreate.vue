@@ -27,6 +27,14 @@
         />
       </div>
       <div>
+        <label>Expire Time:</label>
+        <input
+            type="datetime-local"
+            v-model="room.expire_time"
+            :min="room.end_time"
+        />
+      </div>
+      <div>
         <label>Authorisable:</label>
         <input
           type="checkbox"
@@ -66,6 +74,7 @@ const room = ref({
   moderator: 'moderator',
   start_time: '2022-08-06 08:30:00',
   end_time: '2022-08-06 08:31:00',
+  expire_time: '2022-08-06 08:32:00',
   authorisable: false,
 })
 const roomMinTime = ref('2022-08-06 08:30:00')
@@ -82,15 +91,12 @@ const createRoom = (e) => {
     'user-token': props.token
   }
 
-  if (!(room.value.name && room.value.moderator && room.value.start_time && room.value.end_time)) {
+  if (!(room.value.name && room.value.moderator && room.value.start_time && room.value.end_time && room.value.expire_time)) {
     message.value.type = 'error'
     message.value.text = 'Please fill all required fields.'
     message.value.status = true
     return false
   }
-
-  let currentTime = new Date().getTime();
-  room.value.expire_time = new Date(currentTime + 48 * 60 * 60 * 1000);
 
   loading.value = true
 
@@ -112,6 +118,7 @@ const setRoomStartEndTime = () => {
   roomMinTime.value = setDateTimeFormat()
   room.value.start_time = setDateTimeFormat(1)
   room.value.end_time = setDateTimeFormat(10)
+  room.value.expire_time = setDateTimeFormat(48 * 60);
 }
 
 const setDateTimeFormat = (minutes = 0) => {

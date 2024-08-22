@@ -153,7 +153,7 @@
       </div>
     </div>
     <div
-        style="padding:10px;"
+
         v-show="initializeVideo"
     >
       <VideoConference

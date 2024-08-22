@@ -48,6 +48,8 @@ module.exports = () => {
                     });
                 });
 
+                ShareScreen.eventTrigger(true);
+
                 resolve(media);
             }).catch((error) => {
                 reject(error);
@@ -68,6 +70,8 @@ module.exports = () => {
                     peerJsId: this.parent.peerJsObject.peerJsId,
                 });
             });
+
+            ShareScreen.eventTrigger(false);
 
             await this.parent.peerJsObject.screenShareConnection(false);
 
@@ -95,10 +99,21 @@ module.exports = () => {
         });
     }
 
+    ShareScreen.eventTrigger = (status = true) => {
+        const event = new CustomEvent('onScreenShareModule', {
+            detail: {
+                status: status
+            }
+        });
+
+        window.dispatchEvent(event);
+    }
+
     ShareScreen.closeScreenShare = (data) => {
         const screenShare = document.getElementById(this.parent.options.screenShareRef);
         screenShare.style.display = 'none';
         this.parent.People.setData(data.peerJsId, 'share', false);
+        ShareScreen.eventTrigger(false);
     }
 
     return ShareScreen;

@@ -36,7 +36,9 @@ module.exports = () => {
   Room.left = (roomId, userData = {}) => {
     this.parent?.People.closeAll();
     this.parent?.Media.release();
+
     this.parent?.peerJs.destroy();
+    this.parent?.userSettings.shareMedia?.destroy();
 
     let data = Object.assign({ peerJsId: this.parent?.peerJsId, }, userData)
 
@@ -64,6 +66,13 @@ module.exports = () => {
       }
 
       actionItem.run(this.parent, action);
+
+      const eventName = actionName.charAt(0).toUpperCase() + actionName.slice(1);
+      const event = new CustomEvent('on'+ eventName +'Action', {
+        detail: action.attributes
+      });
+
+      window.dispatchEvent(event);
     } catch (error) {
       console.log('action run failed!');
       console.log(error);

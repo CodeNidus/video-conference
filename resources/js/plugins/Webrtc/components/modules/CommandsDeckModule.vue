@@ -133,7 +133,7 @@
           v-if="!props.commands.isMobile()"
           class="btn btn-small btn-default btn-action"
           :class="{ disabled: props.userSettings.share }"
-          @click.prevent="props.commands.open('shareScreen')"
+          @click.prevent="props.commands.open('screen')"
       >
         <span class="tooltip top">
           {{ (!props.userSettings.share) ? 'Enable screen share' : 'Disable screen share' }}

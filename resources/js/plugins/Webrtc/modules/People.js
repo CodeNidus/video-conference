@@ -76,6 +76,8 @@ module.exports = () => {
   }
 
   People.closeAll = () => {
+    this.parent.Media.screenShare.stopShareScreen();
+
     this.connections.forEach((connection) => {
       connection.mediaConnection.close();
       connection.dataConnection.close();

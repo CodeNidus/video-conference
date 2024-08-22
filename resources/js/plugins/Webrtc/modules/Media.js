@@ -40,23 +40,12 @@ const flipVideoImage = async (canvas) => {
   ctx.restore();
 }
 
-const resolution = {
-  qvga: {
-    width: '320',
-    height: '240'
-  },
-  vga: {
-    width: '640',
-    height: '480',
-  },
-  hd: {
-    width: '1280',
-    height: '720'
-  },
-  fhd: {
-    width: '1920',
-    height: '1080'
-  }
+const scale = 1.33;
+const resolutions = {
+  qvga: 320,
+  vga: 640,
+  hd: 1280,
+  fhd: 1920
 }
 
 module.exports = () => {
@@ -86,10 +75,12 @@ module.exports = () => {
     this.video = document.createElement('video');
 
     // set camera resolution size
-    this.options.minVideoWidth = resolution[this.options.resolution].width;
-    this.options.minVideoHeight = resolution[this.options.resolution].height;
-    this.options.maxVideoWidth = resolution[this.options.resolution].width;
-    this.options.maxVideoHeight = resolution[this.options.resolution].height;
+    const isPortrait = window.innerWidth < window.innerHeight;
+
+    this.options.minVideoWidth = isPortrait? resolutions[this.options.resolution] / scale : resolutions[this.options.resolution];
+    this.options.minVideoHeight = isPortrait? resolutions[this.options.resolution] : resolutions[this.options.resolution] / scale;
+    this.options.maxVideoWidth = isPortrait? resolutions[this.options.resolution] / scale : resolutions[this.options.resolution];
+    this.options.maxVideoHeight = isPortrait? resolutions[this.options.resolution] : resolutions[this.options.resolution] / scale;
 
     this.canvas.width = this.options.minVideoWidth;
     this.canvas.height = this.options.minVideoHeight;

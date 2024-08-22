@@ -42,7 +42,7 @@
           </span>
         <span class="mx-2 c-pointer" @click.prevent="marqueeMessage">{{ (!isPlay) ? 'Play' : 'Stop' }}</span>
       </div>
-      <canvas id="canvas-text-scroll-section" height="250"/>
+      <canvas id="canvas-text-scroll-section"  height="250"/>
     </div>
     <HelperItem
       ref="helper"
@@ -298,6 +298,7 @@ defineExpose({
     border: 1px solid #333;
     border-radius: 15px;
     overflow: hidden;
+    height: 250px;
 
     #canvas-text-action-counter {
       position: absolute;

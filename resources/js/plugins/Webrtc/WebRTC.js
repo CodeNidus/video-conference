@@ -118,6 +118,7 @@ class Webrtc
 
                 let shareScreen = document.getElementById(this.options.screenShareRef);
                 shareScreen.style.display = 'block';
+                this.Media.screenShare.eventTrigger(true);
               });
 
               this.People.setData(mediaConnection.metadata?.peerJsId, 'share', true);

@@ -22,11 +22,13 @@
           :runAction="commands.run"
         />
       </template>
-      <template v-slot:actions>
+      <template v-slot:screenShare>
         <ShareScreenModule
-            :ref="(obj) => modules['shareScreen'] = obj"
+            :ref="(obj) => modules['screen'] = obj"
             :webrtc="webrtc"
         />
+      </template>
+      <template v-slot:actions>
         <VideoConferenceActions
           ref="actions"
           v-if="themeReady && isReady"
@@ -34,6 +36,12 @@
           :webrtc="webrtc"
           :connections="connections"
           :userSettings="userSettings"
+        />
+      </template>
+      <template v-slot:commandsDeck>
+        <CommandsDeckModule
+            :userSettings="userSettings"
+            :commands="commands"
         />
       </template>
     </component>
@@ -51,6 +59,7 @@ import ChatModule from './modules/ChatModule.vue'
 import PeopleModule from './modules/PeopleModule.vue'
 import ShareScreenModule from './modules/ShareScreenModule.vue'
 import configs from '../configs'
+import CommandsDeckModule from "./modules/CommandsDeckModule.vue";
 
 const webrtc = inject('webrtc')
 
@@ -92,7 +101,7 @@ const actions = ref()
 const modules = ref({
   chat: null,
   people: null,
-  screenShare: null,
+  screen: null,
 })
 const room = ref(null)
 const token = ref(null)
