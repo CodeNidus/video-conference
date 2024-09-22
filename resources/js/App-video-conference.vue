@@ -1,9 +1,20 @@
 <template>
   <div>
     <p>Video Conference Test</p>
-    <router-link :to="{ name:'webrtcRooms' }">Rooms</router-link>
-    <router-view />
+
+    <VCRooms />
+
+    <VCRoomJoin
+        room-id="66d5d218a77436496c8df8f3"
+    />
   </div>
 </template>
+
+<script setup>
+  import {inject} from "vue";
+
+  const webrtc = inject('webrtc')
+
+</script>
 
 

@@ -20,7 +20,7 @@ class UserTokenController
 
         $client = new \GuzzleHttp\Client($options);
 
-        $url = config('video-conference.app_url', 'https://fitkala.com/api/connected/user-check');
+        $url = config('video-conference.app_url', 'https://video-conference-api-lzun.onrender.com/api/connected/user-check');
         $username = $user->{config('video-conference.user.username_field', 'email')} ?? null;
 
         if($username == null) {

@@ -21,9 +21,7 @@ php artisan videoconference:install
 
 Install NPM packages
 ``` bash
-npm install vue vue-loader vue-router sass sass-loader file-loader axios peerjs socket.io-client@^4.1.2
-npm install @mediapipe/face_detection @mediapipe/selfie_segmentation
-npm install @tensorflow-models/body-segmentation @tensorflow-models/face-detection @tensorflow/tfjs-backend-webgl @tensorflow/tfjs-converter @tensorflow/tfjs-core
+npm install cnidus-videoconference-vue
 ```
 
 ## Usage
@@ -62,17 +60,19 @@ mix.js('resources/js/app.js', 'public/js').vue()
 #### Modify in vue project 
 Editing the app.js file and add this lines for provide webrtc to project children components
 ```
-import WebRTC from "./utils/Webrtc/WebRTC.js";
-app.provide('webrtc', WebRTC)
+import { VideoConferenceCreator } from "cnidus-videoconference-vue"
+
+const videoconference = VideoConferenceCreator()
+
+app.use(videoconference)
 ```
 Add webrtc vue components in project
 ```
-import Rooms from "@/components/webrtc/Rooms.vue";
+<VCRooms />
+
+<VCRoomJoin room-id="" />
 ```
-Webrtc routes for vue-router
-```
-import webrtcRoutes from "@/router/webrtc.js";
-```
+
 Store user login token in local storage on specific key name
 ```
 localStorage.setItem('cnidus.videoconference.laravel.token', 'user-token')

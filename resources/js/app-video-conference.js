@@ -1,10 +1,10 @@
-import { createApp } from "vue";
-import router from "./router";
-import WebRTC from "./plugins/Webrtc/WebRTC.js";
-import App from "./App-video-conference.vue";
+import { createApp } from "vue"
+import App from "./App-video-conference.vue"
+import { VideoConferenceCreator } from "cnidus-videoconference-vue"
 
-const app = createApp(App);
+const videoconference = VideoConferenceCreator()
 
-app.use(router)
-	.provide('webrtc', WebRTC)
-	.mount("#app");
+const app = createApp(App)
+
+app.use(videoconference)
+	.mount("#app")
