@@ -1,6 +1,6 @@
-import { createApp } from "vue"
-import App from "./App-video-conference.vue"
-import { VideoConferenceCreator } from "cnidus-videoconference-vue"
+import { createApp } from 'vue'
+import App from './App-video-conference.vue'
+import { VideoConferenceCreator } from 'cnidus-videoconference-vue'
 
 const videoconference = VideoConferenceCreator()
 

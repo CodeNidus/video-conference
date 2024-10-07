@@ -8,23 +8,36 @@
 
     <VCRooms
         v-if="showRooms"
+        @onSelectRoom="setRoomId"
     />
+
+    <div
+      v-else-if="!roomId"
+    >
+      Please first create/select a room
+    </div>
 
     <VCRoomJoin
         v-else
-        room-id="66d5d218a77436496c8df8f3"
+        :room-id="roomId"
+        close-url="/"
     />
 
   </div>
 </template>
 
 <script setup>
-import { ref, inject } from "vue";
+import { ref, inject } from 'vue'
 
 const webrtc = inject('webrtc')
 
+const roomId = ref()
 const showRooms = ref(false)
 
+const setRoomId = (roomId) => {
+  roomId.value = roomId
+  showRooms.value = false
+}
 
 </script>
 

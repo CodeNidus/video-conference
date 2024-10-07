@@ -3,8 +3,8 @@
 return [
     'path' => 'rooms',
     'prefix' => 'videoconference',
-    'app_id' => env('VIDEOCONFERENCE_APP_ID', '1'),
-    'app_secret' => env('VIDEOCONFERENCE_APP_SECRET', 'top-secret'),
+    'app_id' => env('VIDUS_APP_ID', '1'),
+    'app_secret' => env('VIDUS_APP_SECRET', 'top-secret'),
 
     'demo_user' => false,
 

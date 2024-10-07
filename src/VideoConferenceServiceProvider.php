@@ -23,7 +23,6 @@ class VideoConferenceServiceProvider extends ServiceProvider
         $router->aliasMiddleware('videoconferenceAuthorize', BaseVideoConferenceAuthorize::class);
 
         $this->registerRoutes();
-        $this->registerResources();
         $this->registerVueAssetsPublish();
         $this->registerConfigFilePublish();
         $this->registerMiddlewareFilePublish();
@@ -34,10 +33,16 @@ class VideoConferenceServiceProvider extends ServiceProvider
         }
     }
 
-    public function registerResources()
+    public function registerRoutes()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'videoconference');
+        Route::group($this->webRouteConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        });
+
+
+        Route::group($this->apiRouteConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        });
     }
 
     public function registerVueAssetsPublish()
@@ -46,7 +51,7 @@ class VideoConferenceServiceProvider extends ServiceProvider
             __DIR__.'/../resources/js/app-video-conference.js' => resource_path('js/app-video-conference.js'),
             __DIR__.'/../resources/js/App-video-conference.vue' => resource_path('js/App-video-conference.vue'),
             __DIR__.'/../resources/js/router/router-video-conference.js' => resource_path('js/router/router-video-conference.js'),
-            __DIR__.'/../resources/js/router/webrtc.js' => resource_path('js/router/webrtc.js'),
+            __DIR__.'/../resources/js/router/video-conference.js' => resource_path('js/router/video-conference.js'),
         ], 'videoconference-vue');
     }
 
@@ -64,17 +69,6 @@ class VideoConferenceServiceProvider extends ServiceProvider
         ], 'videoconference-middleware');
     }
 
-    public function registerRoutes()
-    {
-        Route::group($this->webRouteConfiguration(), function () {
-           $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        });
-
-
-        Route::group($this->apiRouteConfiguration(), function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
-        });
-    }
 
     /**
      * Register any package services.

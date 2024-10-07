@@ -1,13 +1,13 @@
-import { createRouter, createWebHistory } from "vue-router";
-import webrtcRoutes from "./webrtc";
+import { createRouter, createWebHistory } from 'vue-router'
+import videoConferenceRoutes from './video-conference'
 
-let routes = [];
+let routes = []
 
-routes = routes.concat(webrtcRoutes);
+routes = routes.concat(videoConferenceRoutes)
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory('/'),
   routes,
-});
+})
 
 export default router

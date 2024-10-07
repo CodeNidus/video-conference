@@ -20,12 +20,12 @@ class UserTokenController
 
         $client = new \GuzzleHttp\Client($options);
 
-        $url = config('video-conference.app_url', 'https://video-conference-api-lzun.onrender.com/api/connected/user-check');
+        $url = config('video-conference.app_url', 'https://api.vidus.app/api/connected/user-check');
         $username = $user->{config('video-conference.user.username_field', 'email')} ?? null;
 
         if($username == null) {
             if(config('video-conference.demo_user')) {
-                $username = 'demouser@videoconference.com';
+                $username = 'demouser@vidus.app';
             } else {
                 abort(403, 'The user unique field is invalid.');
             }
