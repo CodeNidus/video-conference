@@ -34,8 +34,8 @@ const webrtc = inject('webrtc')
 const roomId = ref()
 const showRooms = ref(false)
 
-const setRoomId = (roomId) => {
-  roomId.value = roomId
+const setRoomId = (room_id) => {
+  roomId.value = room_id
   showRooms.value = false
 }
 
